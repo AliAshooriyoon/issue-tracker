@@ -10,11 +10,11 @@ const NavBar = () => {
   ]
   console.log(currentPath)
   return <>
-    <div className="flex gap-4 space-x- list-none 6 border-b mb-6 p-2 items-center">
+    <div className="bg-stone-700 flex gap-4 space-x- list-none 6 border-b mb-2 p-2 items-center">
       <li>
         <Link href='/'> <FaBug /> </Link>
       </li>
-      {routeLinks.map((p) => <li className={currentPath == p.pathRoute ? "text-zinc-600" : "text-zinc-300"}
+      {routeLinks.map((p) => <li className={currentPath == p.pathRoute ? "text-blue-400" : "text-zinc-300"}
         key={p.pathRoute}>
         <Link href={p.pathRoute} >
           {p.pathname}</Link> </li>)}
