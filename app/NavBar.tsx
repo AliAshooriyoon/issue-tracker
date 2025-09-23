@@ -8,7 +8,6 @@ const NavBar = () => {
     { pathname: "Dashboard", pathRoute: "/dash" },
     { pathname: "Issues", pathRoute: "/issues" },
   ]
-  console.log(currentPath)
   return <>
     <div className="bg-stone-700 flex gap-4 space-x- list-none 6 border-b mb-2 p-2 items-center">
       <li>

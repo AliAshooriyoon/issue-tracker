@@ -1,4 +1,7 @@
-type DataType = {
+import delay from "delay"
+import Link from "next/link";
+import CreatorSlug from "./CreatorSlug";
+export type DataType = {
   id: number;
   title: string;
   description: string;
@@ -6,13 +9,14 @@ type DataType = {
   createdAt: string
 }
 const ShowIssues = async () => {
+  // await delay(5000)
   const res = await fetch("http://localhost:3000/api/issues/")
   const data = await res.json()
-  console.log(data)
+  // console.log(data)
   data.forEach((element: DataType) => {
     const date = new Date()
-    const convertDate = date.toLocaleDateString("en-GB")
-    console.log(convertDate)
+    const convertDate = date.toLocaleDateString("en-GB");
+    // console.log(convertDate)
     element.createdAt = convertDate
   });
   return <>
@@ -30,9 +34,12 @@ const ShowIssues = async () => {
           <tbody>
             {data.map((i: DataType) => <>
               <tr key={i.id}
-                className=" text-left w-full  cursor-pointer h-12 ">
+                className=" text-left w-full h-12 ">
                 <td className="border-2 border-[#2598F5] border-r-0 rounded-l-2xl indent-2">
-                  {i.title}</td>
+                  <span className="cursor-pointer inline ">
+                    <Link href={`/issues/`}>{i.title}</Link>
+                  </span>
+                </td>
                 <td className="border-2 border-[#2598F5] 
                  max-md:border-l-0 max-md:rounded-r-2xl max-md:border-r-2 border-x-0  rounded-x-2xl indent-2"> <div
                     className={`inline ${i.status == 'CLOSED' ? 'text-red-900 bg-red-300'
@@ -53,6 +60,7 @@ const ShowIssues = async () => {
       </div>
 
     </div>
+    <CreatorSlug />
   </>
 }
 export default ShowIssues;
