@@ -1,4 +1,3 @@
-import delay from "delay"
 import Link from "next/link";
 import CreatorSlug from "./CreatorSlug";
 export type DataType = {
