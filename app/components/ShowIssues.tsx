@@ -9,9 +9,15 @@ const ShowIssues = async () => {
   const res = await fetch("http://localhost:3000/api/issues/")
   const data = await res.json()
   console.log(data)
+  data.forEach((element: DataType) => {
+    const date = new Date()
+    const convertDate = date.toLocaleDateString("en-GB")
+    console.log(convertDate)
+    element.createdAt = convertDate
+  });
   return <>
     <div className='text-white'>
-      <div className="m-4 p-4 m-2border-2 rounded-2xl shadow-2xl shadow-[#3358D4] w-[50%] ">
+      <div className="m-4 p-4 m-2border-2 rounded-2xl shadow-2xl shadow-[#3358D4] min-w-[50%]">
         <table className="w-full text-center mx-auto border-separate border-spacing-y-1">
           <thead className="">
             <tr className=" text-left">
