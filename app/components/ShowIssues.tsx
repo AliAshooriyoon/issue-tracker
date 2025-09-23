@@ -30,10 +30,18 @@ const ShowIssues = async () => {
           <tbody>
             {data.map((i: DataType) => <>
               <tr key={i.id}
-                className=" text-left  cursor-pointer h-12 ">
-                <td className="border-2 border-[#2598F5] border-r-0 rounded-l-2xl indent-2">{i.title}</td>
-                <td className="border-2 border-[#2598F5] border-x-0 rounded-x-2xl indent-2">{i.status}</td>
-                <td className="border-2 border-[#2598F5] border-l-0 rounded-r-2xl indent-2">{i.createdAt}</td>
+                className=" text-left w-full  cursor-pointer h-12 ">
+                <td className="border-2 border-[#2598F5] border-r-0 rounded-l-2xl indent-2">
+                  {i.title}</td>
+                <td className="border-2 border-[#2598F5] 
+                 max-md:border-l-0 max-md:rounded-r-2xl max-md:border-r-2 border-x-0  rounded-x-2xl indent-2"> <div
+                    className={`inline ${i.status == 'CLOSED' ? 'text-red-900 bg-red-300'
+                      : i.status == "IN_PROGRESS" ? "text-yellow-900 bg-yellow-300" :
+                        "text-green-900 bg-green-300"} rounded-xl px-2 py-1`}>
+                    {i.status}</div> </td>
+                <td className="hidden md:table-cell border-2 border-[#2598F5] 
+                  border-l-0 rounded-r-2xl indent-2">
+                  {i.createdAt}</td>
               </tr>
               <td className="h-1"></td>
             </>)}
