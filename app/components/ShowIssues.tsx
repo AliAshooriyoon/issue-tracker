@@ -5,11 +5,13 @@ export type DataType = {
   title: string;
   description: string;
   status: string;
-  createdAt: string
+  createdAt: string;
+  slug: string
 }
 const ShowIssues = async () => {
   // await delay(5000)
   const res = await fetch("http://localhost:3000/api/issues/")
+
   const data = await res.json()
   // console.log(data)
   data.forEach((element: DataType) => {
@@ -19,6 +21,7 @@ const ShowIssues = async () => {
     element.createdAt = convertDate
   });
   return <>
+    <CreatorSlug />
     <div className='text-white'>
       <div className="m-4 p-4 m-2border-2 rounded-2xl shadow-2xl shadow-[#3358D4] min-w-[50%]">
         <table className="w-full text-center mx-auto border-separate border-spacing-y-1">
@@ -36,7 +39,7 @@ const ShowIssues = async () => {
                 className=" text-left w-full h-12 ">
                 <td className="border-2 border-[#2598F5] border-r-0 rounded-l-2xl indent-2">
                   <span className="cursor-pointer inline ">
-                    <Link href={`/issues/`}>{i.title}</Link>
+                    <Link href={`/issues/${i.slug}`}>{i.title}</Link>
                   </span>
                 </td>
                 <td className="border-2 border-[#2598F5] 
@@ -59,7 +62,6 @@ const ShowIssues = async () => {
       </div>
 
     </div>
-    <CreatorSlug />
   </>
 }
 export default ShowIssues;
