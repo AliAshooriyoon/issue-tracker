@@ -1,3 +1,4 @@
+import EditForm from "@/app/components/EditForm";
 import { DataType } from "@/app/components/ShowIssues";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
@@ -27,14 +28,16 @@ const Issue = async ({ params }: { params: { id: string } }) => {
   })
   console.log(issue)
   return <>
-    <div className='text-white'>
-      <h1 className="text-2xl">{issue?.title}</h1>
+    <div className='text-white pl-6'>
+      <input type="text" className="text-2xl outline-0 border-2 py-1 px-4 rounded-xl" value={issue?.title} />
       <div className=''>
-        <p className="">{issue?.description}</p>
-        {issue?.createdAt.toString()}
-      </div>
+        {/* <textarea className="w-[70%] min-h-64 border-2 rounded-2xl p-4 outline-0 shadow-2xl shadow-stone-500"></textarea> */}
 
-    </div>
+      </div>
+      <EditForm value={issue?.description} />
+
+      <p className="">{issue?.createdAt.toString()}</p>
+    </div >
   </>
 }
 export default Issue;
