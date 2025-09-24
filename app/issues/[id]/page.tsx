@@ -1,11 +1,11 @@
-import EditForm from "@/app/components/EditForm";
+import { ChangeIssue } from "@/app/components/ChangeIssue";
 import { DataType } from "@/app/components/ShowIssues";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 const Issue = async ({ params }: { params: { id: string } }) => {
   const res = await fetch("http://localhost:3000/api/issues")
   if (!res.ok) {
-    throw new Error("Connection faild!")
+    throw new Error("Connection faild!");
   }
   const data = await res.json();
   const resolvedParams = await params;
@@ -26,18 +26,17 @@ const Issue = async ({ params }: { params: { id: string } }) => {
       id: issueId
     }
   })
+  console.log("Issue Data : ---------------------")
   console.log(issue)
+
+
+  //----------- Space ------------------
+  // Edit Issue data
+
+
+
   return <>
-    <div className='text-white pl-6'>
-      <input type="text" className="text-2xl outline-0 border-2 py-1 px-4 rounded-xl" value={issue?.title} />
-      <div className=''>
-        {/* <textarea className="w-[70%] min-h-64 border-2 rounded-2xl p-4 outline-0 shadow-2xl shadow-stone-500"></textarea> */}
-
-      </div>
-      <EditForm value={issue?.description} />
-
-      <p className="">{issue?.createdAt.toString()}</p>
-    </div >
+    {issue && <ChangeIssue issueData={issue} />}
   </>
 }
 export default Issue;
