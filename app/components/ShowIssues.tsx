@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CreatorSlug from "./CreatorSlug";
+import { Fragment } from "react";
 export type DataType = {
   id: number;
   title: string;
@@ -36,8 +37,8 @@ const ShowIssues = async () => {
             <tr className="h-2"></tr>
           </thead>
           <tbody>
-            {data.map((i: DataType) => <>
-              <tr key={i.id}
+            {data.map((i: DataType) => < Fragment key={i.id}>
+              <tr
                 className=" text-left w-full h-12 ">
                 <td className="border-2 border-[#2598F5] border-r-0 rounded-l-2xl indent-2">
                   <span className="cursor-pointer inline ">
@@ -55,7 +56,7 @@ const ShowIssues = async () => {
                   {i.createdAt}</td>
               </tr>
               <td className="h-1"></td>
-            </>)}
+            </Fragment>)}
 
 
           </tbody>
