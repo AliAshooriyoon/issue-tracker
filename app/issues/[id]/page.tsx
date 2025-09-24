@@ -3,6 +3,9 @@ import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 const Issue = async ({ params }: { params: { id: string } }) => {
   const res = await fetch("http://localhost:3000/api/issues")
+  if (!res.ok) {
+    throw new Error("Connection faild!")
+  }
   const data = await res.json();
   const resolvedParams = await params;
   const slug: string = resolvedParams.id;  // Issue Name + Issue ID;
