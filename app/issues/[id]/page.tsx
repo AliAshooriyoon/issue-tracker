@@ -10,14 +10,12 @@ const Issue = async ({ params }: { params: { id: string } }) => {
   const data = await res.json();
   const resolvedParams = await params;
   const slug: string = resolvedParams.id;  // Issue Name + Issue ID;
-  console.log(slug.split("-"))
   const slugArray = slug.split('-')
 
   const issueId: number = Number(slugArray[slugArray.length - 1])
   const valid = data.find((e: DataType) => {
     return e.slug == slug
   })
-  console.log(valid)
   if (!valid) {
     notFound()
   }
@@ -26,8 +24,6 @@ const Issue = async ({ params }: { params: { id: string } }) => {
       id: issueId
     }
   })
-  console.log("Issue Data : ---------------------")
-  console.log(issue)
 
 
   //----------- Space ------------------

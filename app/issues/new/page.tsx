@@ -15,7 +15,6 @@ const NewIssue = () => {
   const control = formHook.control;
 
   const setData = async (data: UseFormType) => {
-    console.log(data)
     try {
       const res = await fetch("/api/issues/", { method: "POST", body: JSON.stringify(data) })
       if (!res.ok) {
@@ -23,11 +22,8 @@ const NewIssue = () => {
       }
       const result = await res.json()
       if (result.id) {
-        console.log("success")
-        console.log(result)
       }
     } catch (error) {
-      console.log(error)
     }
   }
   return <>

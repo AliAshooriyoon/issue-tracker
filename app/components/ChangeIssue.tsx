@@ -17,7 +17,10 @@ export const ChangeIssue = ({ issueData: issue }: { issueData: IssueType }) => {
   const [newDescription, setNewDescription] = useState(issue?.description)
 
   const changeIssueData = async () => {
-
+    const res = await fetch("http://localhost:3000/api/issues/update-issue",
+      { method: "PATCH", body: JSON.stringify({ id: issue.id, title: newTitle, description: newDescription }) })
+    const data = (await res).json()
+    console.log(data)
   }
 
   return <>
@@ -29,7 +32,7 @@ export const ChangeIssue = ({ issueData: issue }: { issueData: IssueType }) => {
       <textarea onChange={(e) => setNewDescription(e.target.value)} value={newDescription} className="my-6 w-[70%] min-h-64 border-2 rounded-2xl
         p-4 outline-0 shadow-2xl shadow-stone-500"/>
 
-      <button className={`hover:bg-zinc-100 delay-100 hover:text-black
+      <button onClick={changeIssueData} className={`hover:bg-zinc-100 delay-100 hover:text-black
           hover:border-black outline-0 border-2 block py-2 px-4
           my-4 rounded-2xl cursor-pointer`} type="button">Submit changes</button>
       <p className="">Created At : {issue?.createdAt.toString()}</p>
