@@ -11,7 +11,9 @@ export type DataType = {
 const ShowIssues = async () => {
   // await delay(5000)
   const res = await fetch("http://localhost:3000/api/issues/")
-
+  if (!res.ok) {
+    throw new Error("Connection faild!")
+  }
   const data = await res.json()
   // console.log(data)
   data.forEach((element: DataType) => {
