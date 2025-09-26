@@ -28,7 +28,11 @@ const Issue = async ({ params }: { params: { id: string } }) => {
 
   //----------- Space ------------------
   // Edit Issue data
+  // Delete Button
 
+  const removeAction = (idToRemove: number) => {
+    console.log(idToRemove)
+  }
 
 
   return <>
