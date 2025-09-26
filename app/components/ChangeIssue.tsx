@@ -22,6 +22,7 @@ export const ChangeIssue = ({ issueData: issue }: { issueData: IssueType }) => {
       { method: "PATCH", body: JSON.stringify({ id: issue.id, title: newTitle, description: newDescription }) })
     const data = (await res).json()
     console.log(data)
+    router.push('/issues')
   }
   const getDelete = async (inp: number) => {
     const res = await fetch("http://localhost:3000/api/issues/remove-issue",

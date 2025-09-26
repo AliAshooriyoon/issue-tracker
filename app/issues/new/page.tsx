@@ -3,6 +3,7 @@ import { Button, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation";
 type UseFormType = {
   title: string;
   description: string;
@@ -13,7 +14,7 @@ const NewIssue = () => {
   const register = formHook.register;
   const handleFunc = formHook.handleSubmit;
   const control = formHook.control;
-
+  const router = useRouter()
   const setData = async (data: UseFormType) => {
     try {
       const res = await fetch("/api/issues/", { method: "POST", body: JSON.stringify(data) })
@@ -21,7 +22,10 @@ const NewIssue = () => {
         throw new Error(`Error message : ${res.status} `)
       }
       const result = await res.json()
+
       if (result.id) {
+        router.push("/issues")
+        router.refresh()
       }
     } catch (error) {
     }

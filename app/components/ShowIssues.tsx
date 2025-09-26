@@ -1,5 +1,4 @@
 import Link from "next/link";
-import CreatorSlug from "./CreatorSlug";
 import { Fragment } from "react";
 export type DataType = {
   id: number;
@@ -11,7 +10,12 @@ export type DataType = {
 }
 const ShowIssues = async () => {
   // await delay(5000)
+
+
+  await fetch('http://localhost:3000/api/issues/create-slug', { method: 'PATCH' });
+
   const res = await fetch("http://localhost:3000/api/issues/")
+
   if (!res.ok) {
     throw new Error("Connection faild!")
   }
@@ -24,7 +28,6 @@ const ShowIssues = async () => {
     element.createdAt = convertDate
   });
   return <>
-    <CreatorSlug />
     <div className='text-white'>
       <div className="m-4 p-4 m-2border-2 rounded-2xl shadow-2xl shadow-[#3358D4] min-w-[50%]">
         <table className="w-full text-center mx-auto border-separate border-spacing-y-1">
