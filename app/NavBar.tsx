@@ -41,7 +41,8 @@ const NavBar = () => {
         <div className=''>
 
 
-          <Image onClick={() => setShowMenu(prev => !prev)} alt="" width={50} height={50} className="rounded-full border-2 border-white"
+          <Image onClick={() => setShowMenu(prev => !prev)} alt="" width={50} height={50}
+            className={`${session?.user?.id && 'rounded-full border-2 border-white'} `}
             src={`${session?.user?.image ?? 'https://img.icons8.com/forma-thin-filled/24/user.png'}`}></Image>
         </div>
       </div>
