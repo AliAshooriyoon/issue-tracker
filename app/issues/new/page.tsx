@@ -3,13 +3,17 @@ import { Button, TextField } from "@radix-ui/themes";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form"
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 type UseFormType = {
   title: string;
   description: string;
 }
 const NewIssue = () => {
-
+  const { data } = useSession()
+  if (!data?.user?.id) {
+    redirect('/api/auth/signin')
+  }
   const formHook = useForm<UseFormType>()
   const register = formHook.register;
   const handleFunc = formHook.handleSubmit;

@@ -1,5 +1,8 @@
+import { auth } from "@/auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Fragment } from "react";
+import { cookies } from "next/headers";
 export type DataType = {
   id: number;
   title: string;
@@ -9,12 +12,20 @@ export type DataType = {
   slug: string
 }
 const ShowIssues = async () => {
+  const session = await auth()
+  if (!session?.user?.id) {
+    redirect("/api/auth/signin")
+  }
   // await delay(5000)
 
 
   await fetch('http://localhost:3000/api/issues/create-slug', { method: 'PATCH' });
 
-  const res = await fetch("http://localhost:3000/api/issues/")
+  const res = await fetch("http://localhost:3000/api/issues/", {
+    headers: {
+      Cookie: cookies().toString(), // Auth-Cookies an API weitergeben
+    }
+  })
 
   if (!res.ok) {
     throw new Error("Connection faild!")

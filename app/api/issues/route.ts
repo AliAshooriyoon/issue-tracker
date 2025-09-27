@@ -9,7 +9,7 @@ const schemaIssues = z.object({
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
   const session = await auth();
-  console.log(session!.user);
+  // console.log(session!.user);
   const validation = schemaIssues.safeParse(body);
   if (!validation.success) return NextResponse.json(validation.error.message, { status: 400 });
 
@@ -24,6 +24,14 @@ export const POST = async (request: NextRequest) => {
 };
 
 export const GET = async (request: NextRequest) => {
-  const data = await prisma.issue.findMany();
+  const session = await auth();
+  console.log('----------------------------');
+  console.log(session?.user?.id);
+  console.log('----------------------------');
+  const data = await prisma.issue.findMany({
+    where: {
+      userId: session?.user?.id,
+    },
+  });
   return NextResponse.json(data);
 };
