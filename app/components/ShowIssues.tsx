@@ -19,11 +19,17 @@ const ShowIssues = async () => {
   // await delay(5000)
 
 
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+
   await fetch('http://localhost:3000/api/issues/create-slug', { method: 'PATCH' });
 
   const res = await fetch("http://localhost:3000/api/issues/", {
     headers: {
-      Cookie: cookies().toString(), // Auth-Cookies an API weitergeben
+      Cookie: cookieHeader, // Auth-Cookies an API weitergeben    
     }
   })
 
