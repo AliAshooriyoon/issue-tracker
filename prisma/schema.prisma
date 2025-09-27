@@ -21,6 +21,8 @@ model Issue {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   slug        String?  @unique
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Status {
@@ -67,6 +69,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  issues        Issue[]
 
   @@map("users")
 }

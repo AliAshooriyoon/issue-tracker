@@ -5,6 +5,7 @@ import { FaBug } from 'react-icons/fa';
 import { useSession } from "next-auth/react"
 const NavBar = () => {
   const { data, status } = useSession();
+  console.log(data)
   const currentPath = usePathname();
   const routeLinks = [
     { pathname: "Dashboard", pathRoute: "/dash" },
