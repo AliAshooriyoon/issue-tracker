@@ -26,7 +26,7 @@ const NavBar = () => {
   return <>
     <div className="relative">
       {showMenu && (<div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />)}
-      <div className="absolute top-0 w-full px-4 bg-stone-700 flex justify-between gap-4
+      <div className=" w-full px-4 bg-stone-700 flex justify-between gap-4
       space-x- list-none 6 border-b mb-2 p-2 items-center h-16">
 
         {showMenu && <MenuUser status={status} />}
