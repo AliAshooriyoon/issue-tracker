@@ -24,28 +24,33 @@ const NavBar = () => {
   ]
 
   return <>
-    <div className="absolute top-0 w-full px-4 bg-stone-700 flex justify-between gap-4
+    <div className="relative">
+      {showMenu && (<div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />)}
+      <div className="absolute top-0 w-full px-4 bg-stone-700 flex justify-between gap-4
       space-x- list-none 6 border-b mb-2 p-2 items-center h-16">
 
-      {showMenu && <MenuUser status={status} />}
-      <div className="flex items-center gap-4">
-        <li>
-          <Link href='/'> <FaBug /> </Link>
-        </li>
-        {routeLinks.map((p) => <li className={currentPath == p.pathRoute ? "text-blue-400" : "text-zinc-300"}
-          key={p.pathRoute}>
-          <Link href={p.pathRoute} >
-            {p.pathname}</Link> </li>)}
-      </div>
-      <div className="text-white h-full cursor-pointer pr-12 text-xl flex gap-6 flex-row-reverse items-center">
-        <div className=''>
+        {showMenu && <MenuUser status={status} />}
+        <div className="flex items-center gap-4">
+          <li>
+            <Link href='/'> <FaBug /> </Link>
+          </li>
+          {routeLinks.map((p) => <li className={currentPath == p.pathRoute ? "text-blue-400" : "text-zinc-300"}
+            key={p.pathRoute}>
+            <Link href={p.pathRoute} >
+              {p.pathname}</Link> </li>)}
+        </div>
+        <div className="text-white h-full cursor-pointer pr-12 text-xl flex gap-6 flex-row-reverse items-center">
+          <div className=''>
 
 
-          <Image onClick={() => setShowMenu(prev => !prev)} alt="" width={50} height={50}
-            className={`${session?.user?.id && 'rounded-full border-2 border-white'} `}
-            src={`${session?.user?.image ?? 'https://img.icons8.com/forma-thin-filled/24/user.png'}`}></Image>
+            <Image onClick={() => setShowMenu(prev => !prev)} alt="" width={50} height={50}
+              className={`${session?.user?.id && 'rounded-full border-2 border-white'} `}
+              src={`${session?.user?.image ?? 'https://img.icons8.com/forma-thin-filled/24/user.png'}`}></Image>
+          </div>
         </div>
       </div>
+
+
     </div>
   </>
 }
