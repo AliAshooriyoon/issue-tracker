@@ -23,11 +23,8 @@ export const POST = async (request: NextRequest) => {
   return NextResponse.json(newIssue, { status: 201 });
 };
 
-export const GET = async (request: NextRequest) => {
+export const GET = async () => {
   const session = await auth();
-  console.log('----------------------------');
-  console.log(session?.user?.id);
-  console.log('----------------------------');
   const data = await prisma.issue.findMany({
     where: {
       userId: session?.user?.id,
