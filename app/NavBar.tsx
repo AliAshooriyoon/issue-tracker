@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react"
 import Image from "next/image";
 import { useState } from "react";
 const MenuUser = ({ status }: { status: string }) => {
-  return <div className="absolute top-16 right-4 text-white w-48 p-2 text-left indent-2 text-xl h-32 bg-stone-600 rounded-b-2xl">
+  return <div className="absolute top-16 right-4 text-white w-48 p-2 text-left indent-2 text-xl h-32 bg-stone-600 rounded-b-2xl z-20">
     <Link href={status == "unauthenticated" ? '/api/auth/signin' : status == "authenticated" ?
       "/api/auth/signout" : "#"}>
       {status == "authenticated" ? "Signout" : status == "unauthenticated" ? "Signin" : ""}</Link>
@@ -19,7 +19,7 @@ const NavBar = () => {
   console.log(session?.user?.id)
   const currentPath = usePathname();
   const routeLinks = [
-    { pathname: "Dashboard", pathRoute: "/dash" },
+    { pathname: "Dashboard", pathRoute: "/dashboard" },
     { pathname: "Issues", pathRoute: "/issues" },
   ]
 
@@ -45,7 +45,8 @@ const NavBar = () => {
 
             <Image onClick={() => setShowMenu(prev => !prev)} alt="" width={50} height={50}
               className={`${session?.user?.id && 'rounded-full border-2 border-white'} `}
-              src={`${session?.user?.image ?? 'https://img.icons8.com/forma-thin-filled/24/user.png'}`}></Image>
+              src={`${session?.user?.image ?? 'https://img.icons8.com/forma-thin-filled/24/user.png'}`}>
+            </Image>
           </div>
         </div>
       </div>
