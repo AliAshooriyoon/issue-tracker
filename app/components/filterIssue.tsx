@@ -15,9 +15,9 @@ const FilterIssue = () => {
     <div className="text-white pt-12 pl-6">
       <select value={selectValue} onChange={(e) => changeStatus(e.target.value)}
         className="border-2 p-2 rounded-2xl w-32">
-        <option value={'open'} >Open</option>
-        <option value={'inProgress'}>InProgress</option>
-        <option value={'closed'}>Closed</option>
+        <option value={'OPEN'} >Open</option>
+        <option value={'IN_PROGRESS'}>InProgress</option>
+        <option value={'CLOSED'}>Closed</option>
         <option value={''} selected>All</option>
       </select>
     </div>

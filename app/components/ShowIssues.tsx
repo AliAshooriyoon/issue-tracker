@@ -16,9 +16,6 @@ export type DataType = {
   userId: string,
 }
 
-
-
-
 const ShowIssues = async () => {
 
   const session = await auth();
