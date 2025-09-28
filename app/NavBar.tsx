@@ -16,7 +16,6 @@ const MenuUser = ({ status }: { status: string }) => {
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false)
   const { data: session, status } = useSession();
-  console.log(session?.user?.id)
   const currentPath = usePathname();
   const routeLinks = [
     { pathname: "Dashboard", pathRoute: "/dashboard" },

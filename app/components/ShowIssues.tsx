@@ -2,49 +2,62 @@ import { auth } from "@/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
-import { cookies } from "next/headers";
+import prisma from "@/prisma/client";
+import FilterIssue from "./filterIssue";
+
 export type DataType = {
-  id: number;
-  title: string;
-  description: string;
-  status: string;
-  createdAt: string;
-  slug: string
+  title: string,
+  id: number,
+  description: string,
+  slug: string | null,
+  status: string,
+  createdAt: Date | string,
+  updatedAt: Date,
+  userId: string,
 }
+
 const ShowIssues = async () => {
-  const session = await auth()
+
+  const session = await auth();
   if (!session?.user?.id) {
     redirect("/api/auth/signin")
   }
-  // await delay(5000)
 
-
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join("; ");
+  // const cookieStore = await cookies();
+  // const cookieHeader = cookieStore
+  //   .getAll()
+  //   .map((c) => `${c.name}=${c.value}`)
+  //   .join("; ");
 
   await fetch('http://localhost:3000/api/issues/create-slug', { method: 'PATCH' });
-
-  const res = await fetch("http://localhost:3000/api/issues/", {
-    headers: {
-      Cookie: cookieHeader, // Auth-Cookies an API weitergeben    
+  const data = await prisma.issue.findMany({
+    where: {
+      userId: session?.user?.id
+    },
+    orderBy: {
+      title: "desc"
     }
   })
 
-  if (!res.ok) {
-    throw new Error("Connection faild!")
+  if (!data) {
+    throw new Error("Connection failed!")
   }
-  const data = await res.json()
+  // const data = await res.json()
   // console.log(data)
   data.forEach((element: DataType) => {
-    const date = new Date()
-    const convertDate = date.toLocaleDateString("en-GB");
     // console.log(convertDate)
-    element.createdAt = convertDate
+    element.createdAt = new Date(element.createdAt).toLocaleDateString("en-GB",
+      {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    );
   });
   return <>
+    <FilterIssue />
     <div className='text-white'>
       <div className="m-4 p-4 m-2border-2 rounded-2xl shadow-2xl shadow-[#3358D4] min-w-[50%]">
         <table className="w-full text-center mx-auto border-separate border-spacing-y-1">
@@ -52,7 +65,7 @@ const ShowIssues = async () => {
             <tr className=" text-left">
               <th className="p-3 rounded-l-lg">Title</th>
               <th className="p-3 rounded-r-lg">Status</th>
-              <th className="p-3 ">Created</th>
+              <th className="p-3">Created</th>
             </tr>
             <tr className="h-2"></tr>
           </thead>
@@ -73,7 +86,7 @@ const ShowIssues = async () => {
                     {i.status}</div> </td>
                 <td className="hidden md:table-cell border-2 border-[#2598F5] 
                   border-l-0 rounded-r-2xl indent-2">
-                  {i.createdAt}</td>
+                  {`${i.createdAt}`}</td>
               </tr>
               <td className="h-1"></td>
             </Fragment>)}
