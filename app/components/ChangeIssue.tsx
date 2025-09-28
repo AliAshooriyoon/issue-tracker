@@ -25,7 +25,7 @@ export const ChangeIssue = ({ issueData: issue }: { issueData: IssueType }) => {
     router.push('/issues')
   }
   const getDelete = async (inp: number) => {
-    const res = await fetch(`http://localhost:3000/api/issues/remove-issue`,
+    const res = await fetch(`/api/issues/remove-issue`,
       { method: "DELETE", body: JSON.stringify({ id: inp }) })
     const data = await res.json()
     console.log(data)
