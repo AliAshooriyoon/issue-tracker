@@ -9,8 +9,7 @@ const Issue = async ({ params }: { params: { id: string } }) => {
     throw new Error("Connection faild!");
   }
   const data = await res.json();
-  const resolvedParams = await params;
-  const slug: string = resolvedParams.id;  // Issue Name + Issue ID;
+  const slug: string = params.id;  // Issue Name + Issue ID;
   const slugArray = slug.split('-')
 
   const issueId: number = Number(slugArray[slugArray.length - 1])
