@@ -1,38 +1,33 @@
 // app/issues/[id]/page.tsx
 import { ChangeIssue } from "@/app/components/ChangeIssue";
-import { DataType } from "@/app/components/ShowIssues";
 import prisma from "@/prisma/client";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// nicht PageProps von Next.js verwenden → selber definieren
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const IssuePage = async ({ params }: any) => {
+  const slug = params.id;
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const Issue = async ({ params }: any) => {
-  const awaitedParams = params;
-  console.log("-------------------------- params ---------------------------")
-  console.log(awaitedParams)
-  const slug = awaitedParams.id;
+  // Extract issue ID from slug
   const slugArray = slug.split("-");
   const issueId = Number(slugArray.at(-1));
 
-  const res = await fetch(`/api/issues`, {
-    cache: "no-store",
+  // Fetch the issue directly from the database
+  const issue = await prisma.issue.findUnique({
+    where: { id: issueId },
   });
-  if (!res.ok) throw new Error("Connection failed!");
-  const data: DataType[] = await res.json();
 
-  const valid = data.find((e) => e.slug === slug);
-  if (!valid) notFound();
+  // If issue not found or slug mismatch, return 404
+  if (!issue || issue.slug !== slug) {
+    notFound();
+  }
 
-  const issue = await prisma.issue.findUnique({ where: { id: issueId } });
-
-  return <>{issue && <ChangeIssue issueData={issue} />}</>;
+  return <ChangeIssue issueData={issue} />;
 };
 
 export const metadata: Metadata = {
   title: "Issue Tracker",
-  description: "Issue Tracker project",
+  description: "View an issue",
 };
 
-export default Issue;
+export default IssuePage;
