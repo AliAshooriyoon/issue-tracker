@@ -5,26 +5,22 @@ import prisma from "@/prisma/client";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// Next.js PageProps generisch typisieren
-type PageProps = {
+// nicht PageProps von Next.js verwenden → selber definieren
+type IssuePageProps = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-const Issue = async ({ params }: PageProps) => {
-  // Kein await hier!
-  const slug = params.id; // z.B. "login-bug-12"
+const Issue = async ({ params }: IssuePageProps) => {
+  const slug = params.id;
   const slugArray = slug.split("-");
   const issueId = Number(slugArray.at(-1));
 
-  // API Call
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/issues`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Connection failed!");
   const data: DataType[] = await res.json();
 
-  // Validierung
   const valid = data.find((e) => e.slug === slug);
   if (!valid) notFound();
 
