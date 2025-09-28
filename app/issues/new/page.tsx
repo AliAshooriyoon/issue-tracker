@@ -1,6 +1,7 @@
 "use client"
 import { Button, TextField } from "@radix-ui/themes";
-import SimpleMDE from "react-simplemde-editor";
+// import SimpleMDE from "react-simplemde-editor";
+import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form"
 import { redirect, useRouter } from "next/navigation";
@@ -10,6 +11,7 @@ type UseFormType = {
   title: string;
   description: string;
 }
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false })
 const NewIssue = () => {
   const { data } = useSession()
   if (!data?.user?.id) {
@@ -22,7 +24,7 @@ const NewIssue = () => {
   const router = useRouter()
   const setData = async (data: UseFormType) => {
     try {
-      const res = await fetch("/api/issues/", { method: "POST", body: JSON.stringify(data) })
+      const res = await fetch("/api/issues", { method: "POST", body: JSON.stringify(data) })
       if (!res.ok) {
         throw new Error(`Error message : ${res.status} `)
       }
