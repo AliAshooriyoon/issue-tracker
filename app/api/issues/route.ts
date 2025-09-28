@@ -12,12 +12,14 @@ export const POST = async (request: NextRequest) => {
   // console.log(session!.user);
   const validation = schemaIssues.safeParse(body);
   if (!validation.success) return NextResponse.json(validation.error.message, { status: 400 });
-
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const newIssue = await prisma.issue.create({
     data: {
       title: body.title,
       description: body.description,
-      userId: session?.user!.id,
+        userId: session.user.id,
     },
   });
   return NextResponse.json(newIssue, { status: 201 });

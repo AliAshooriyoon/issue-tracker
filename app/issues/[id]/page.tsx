@@ -6,12 +6,13 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 // nicht PageProps von Next.js verwenden → selber definieren
-type IssuePageProps = {
-  params: { id: string };
-};
 
-const Issue = async ({ params }: IssuePageProps) => {
-  const slug = params.id;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const Issue = async ({ params }:any) => {
+  const awaitedParams = params;
+  console.log("-------------------------- params ---------------------------")
+  console.log(awaitedParams)
+  const slug = awaitedParams.id;
   const slugArray = slug.split("-");
   const issueId = Number(slugArray.at(-1));
 

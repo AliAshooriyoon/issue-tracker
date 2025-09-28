@@ -18,10 +18,9 @@ export type DataType = {
   updatedAt: Date,
   userId: string,
 }
-const Issues = async ({ searchParams }:
-  { searchParams: { [key: string]: Status } }
 
-) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const Issues = async ({ searchParams }:any) => {
 
   const statusValue = await searchParams;
   const session = await auth();
@@ -29,7 +28,7 @@ const Issues = async ({ searchParams }:
     redirect("/api/auth/signin")
   }
 
-  await fetch('/api/issues/create-slug', { method: 'PATCH' });
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/issues/create-slug`, { method: 'PATCH' });
   const data = await prisma.issue.findMany({
     where: {
       userId: session?.user?.id,
