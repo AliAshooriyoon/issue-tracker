@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 // nicht PageProps von Next.js verwenden → selber definieren
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const Issue = async ({ params }:any) => {
+const Issue = async ({ params }: any) => {
   const awaitedParams = params;
   console.log("-------------------------- params ---------------------------")
   console.log(awaitedParams)
@@ -16,7 +16,7 @@ const Issue = async ({ params }:any) => {
   const slugArray = slug.split("-");
   const issueId = Number(slugArray.at(-1));
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/issues`, {
+  const res = await fetch(`/api/issues`, {
     cache: "no-store",
   });
   if (!res.ok) throw new Error("Connection failed!");
