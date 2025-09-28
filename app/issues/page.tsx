@@ -29,7 +29,7 @@ const Issues = async ({ searchParams }:
     redirect("/api/auth/signin")
   }
 
-  await fetch('http://localhost:3000/api/issues/create-slug', { method: 'PATCH' });
+  await fetch('/api/issues/create-slug', { method: 'PATCH' });
   const data = await prisma.issue.findMany({
     where: {
       userId: session?.user?.id,

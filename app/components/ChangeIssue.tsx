@@ -18,14 +18,14 @@ export const ChangeIssue = ({ issueData: issue }: { issueData: IssueType }) => {
   const [newDescription, setNewDescription] = useState(issue?.description)
   const router = useRouter()
   const changeIssueData = async () => {
-    const res = await fetch("http://localhost:3000/api/issues/update-issue",
+    const res = await fetch("/api/issues/update-issue",
       { method: "PATCH", body: JSON.stringify({ id: issue.id, title: newTitle, description: newDescription }) })
     const data = (await res).json()
     console.log(data)
     router.push('/issues')
   }
   const getDelete = async (inp: number) => {
-    const res = await fetch("http://localhost:3000/api/issues/remove-issue",
+    const res = await fetch("/api/issues/remove-issue",
       { method: "DELETE", body: JSON.stringify({ id: inp }) })
     const data = await res.json()
     console.log(data)
