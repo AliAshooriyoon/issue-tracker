@@ -5,6 +5,7 @@ import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form"
 import { redirect, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Metadata } from "next";
 type UseFormType = {
   title: string;
   description: string;
@@ -51,4 +52,7 @@ const NewIssue = () => {
     </form>
   </>
 }
+
+
+
 export default NewIssue;

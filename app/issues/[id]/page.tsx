@@ -1,6 +1,7 @@
 import { ChangeIssue } from "@/app/components/ChangeIssue";
 import { DataType } from "@/app/components/ShowIssues";
 import prisma from "@/prisma/client";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 const Issue = async ({ params }: { params: { id: string } }) => {
   const res = await fetch("http://localhost:3000/api/issues")
@@ -39,4 +40,11 @@ const Issue = async ({ params }: { params: { id: string } }) => {
     {issue && <ChangeIssue issueData={issue} />}
   </>
 }
+
+export const metadata: Metadata = {
+  title: "Issue Tracker",
+  description: "Issue Tracker project"
+};
+
+
 export default Issue;

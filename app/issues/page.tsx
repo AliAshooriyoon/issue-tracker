@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import prisma from "@/prisma/client";
 import FilterIssue from "../components/filterIssue";
 import { Status } from "@prisma/client";
+import { Metadata } from "next";
 
 export type DataType = {
   title: string,
@@ -102,4 +103,13 @@ const Issues = async ({ searchParams }:
     </div>
   </>
 }
+
+
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Issue List",
+  description: "View all issues"
+};
+
+
 export default Issues;

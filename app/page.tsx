@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 
 export default function Home() {
@@ -7,3 +8,8 @@ export default function Home() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Issue Tracker",
+  description: "Issue Tracker project"
+};

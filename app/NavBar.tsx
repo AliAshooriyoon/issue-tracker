@@ -18,7 +18,7 @@ const NavBar = () => {
   const { data: session, status } = useSession();
   const currentPath = usePathname();
   const routeLinks = [
-    { pathname: "Dashboard", pathRoute: "/dashboard" },
+    // { pathname: "Dashboard", pathRoute: "/dashboard" },
     { pathname: "Issues", pathRoute: "/issues" },
   ]
 
